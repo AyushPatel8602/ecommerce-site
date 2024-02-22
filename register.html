@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Page</title>
+    <style>
+body {
+  background-color: rgb(15,23,43);
+  font-size: medium; /* Adjust font size */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+fieldset {
+  width: 350px; /* Decrease width */
+  padding: 30px; /* Adjust padding */
+  margin: 30px; /* Adjust margin */
+  border: 5px solid yellow;
+}
+
+form {
+  margin-top: 20px; /* Adjust margin */
+}
+
+input {
+  width: 100%;
+  font-size: 16px; /* Adjust font size */
+  padding: 5px; /* Adjust padding */
+  margin-bottom: 10px; /* Adjust margin */
+}
+
+.gender-label {
+  display: inline-block;
+  margin-right: 10px; /* Adjust margin */
+}
+
+button {
+  padding: 8px; /* Adjust padding */
+  width: 100%;
+  background-color: blanchedalmond;
+  color: black;
+  font-size: smaller;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}      #genderMale{
+        width: 10px;
+      }
+      #genderFemale{
+        width: 10px;
+      }
+
+      button:hover {
+        background-color: yellow;
+        color: red;
+      }
+      h3{
+        color: yellow;
+      }
+            legend{
+                font-size: xx-large;
+                font-weight: bolder;
+            }
+
+
+
+    </style>
+  </head>
+  <body>
+    <fieldset>
+     <legend>Registration form</legend>
+    <form action="" method="GET" >
+       <h3> <label for="fname">First Name</label></h3>
+        <input
+          type="text"
+          name="fname"
+          id="fname"
+          placeholder="Enter your firstname"
+          required
+        />
+
+       <h3> <label for="Lname">Last Name</label></h3>
+        <input
+          type="text"
+          name="Lname"
+          id="Lname"
+          placeholder="Enter your Lasttname"
+          required
+        />
+
+      <h3>  <label>Gender</label></h3>
+        Male  :    <input type="radio" name="gender" id="genderMale" value="male" />
+        Female :<input type="radio" name="gender" id="genderFemale" value="Female" />
+       
+      <h3>  <label for="email">Email id</label>
+      </h3> <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter your Email"
+          required
+        />
+
+            <h3>    <label for="pwd">Password</label>
+            </h3> <input
+          type="password"
+          name="pwd"
+          id="pwd"
+          placeholder="Enter your Password "
+          required
+        />
+        <h3>
+        <label for="cpwd">Confirm Password</label>
+    </h3><input
+          type="password"
+          name="cpwd"
+          id="cpwd"
+          placeholder="Confirm Password"
+          required
+        />
+        <label for="cpwd">Address</label>
+      </h3><input
+            type="text"
+            name="address"
+            id="address"
+            placeholder="Address"
+            required
+          />
+  
+        <button type="submit" onclick="validateForm()">Register</button>
+        <h4> Already have an account ? <a href="./login.html" style="color: red;">Login from here</a> </h4>
+
+      </form>
+    </fieldset>
+    <script>
+      function validateForm() {
+        // Get the values entered by the user
+        const firstName = document.getElementById("fname").value.trim();
+        const lastName = document.getElementById("Lname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("pwd").value;
+        const confirmPassword = document.getElementById("cpwd").value;
+
+        
+
+        // Validate first name and last name
+        if (firstName === "" || lastName === "") {
+          alert("Please enter both first name and last name.");
+          return false;
+        }
+
+        // Validate gender
+        const genderMale = document.getElementById("genderMale").checked;
+        const genderFemale = document.getElementById("genderFemale").checked;
+        if (!genderMale && !genderFemale) {
+          alert("Please select a gender.");
+          return false;
+        }
+
+        // Validate email
+        if (!isValidEmail(email)) {
+          alert("Please enter a valid email address.");
+          return false;
+        }
+
+        // Validate password and confirm password
+        if (password === "" || confirmPassword === "") {
+          alert("Please enter both password and confirm password.");
+          return false;
+        } else if (password !== confirmPassword) {
+          alert("Passwords do not match.");
+          return false;
+        }
+
+        // All validations passed, form can be submitted
+        // return true;
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("pass", password);
+        console.log((sessionStorage.getItem("email")) + " " + sessionStorage.getItem("pass"));
+        alert("Register Successful");
+        open("./index.html");
+
+      }
+
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+    </script>
+  </body>
+</html>

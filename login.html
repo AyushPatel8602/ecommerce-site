@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <style>
+    body {
+      background-color: rgb(15,23,43);      font-size: medium; /* Adjust font size */
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .otp-field {
+      display: none;
+    }
+    fieldset {
+      width: 350px; /* Decrease width */
+      padding: 30px; /* Adjust padding */
+      border: 5px solid yellow;
+    }
+    form {
+      margin-top: 20px; /* Adjust margin */
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      font-size: 16px; /* Adjust font size */
+      padding: 5px; /* Adjust padding */
+      margin-bottom: 15px; /* Adjust margin */
+    }
+    button {
+      padding: 8px;
+      width: 100%;
+      background-color: blanchedalmond;
+      color: black;
+      font-size: smaller;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px; /* Adjust margin */
+    }
+    button:hover {
+      background-color: yellow;
+      color: red;
+    }
+    h3 {
+      color: yellow;
+      font-size: large; /* Adjust font size */
+      margin-top: 10px; /* Adjust margin */
+    }
+    legend {
+      font-size: x-large; /* Adjust font size */
+      font-weight: bolder;
+    }
+    .otp {
+      width: 200px;
+      background-color: gray;
+      height: 40px;
+      position: relative;
+      left: 140px;
+    }
+    .otp::placeholder {
+      color: black;
+    }
+    .otp:focus {
+      background-color: white;
+    }
+    #sub {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <fieldset>
+    <legend>Login form</legend>
+    <form action="" method="GET">
+      <h3><label for="email">Email id</label></h3>
+      <input type="email" name="email" id="email" placeholder="Enter your Email" required />
+      <h3><label for="pwd">Password</label></h3>
+      <input type="password" name="pwd" id="pwd" placeholder="Enter your Password" required />
+      <button type="submit" onclick="signin()">Login</button>
+      <br><br>
+      <h4>Don't have an account? <a href="./register.html" style="color: red;">Register from here</a></h4>
+    </form>
+    <div class="otp-field">
+      <h3><label for="otp">Enter OTP</label></h3>
+      <input type="text" name="otp" id="otp" class="otp" placeholder="Enter OTP" required />
+      <br>
+      <button class="otp" id="sub" onclick="validateForm()">Submit</button>
+    </div>
+    <button id="otp" onclick="showOTPField()">Send OTP</button>
+  </fieldset>
+</body>
+<script>
+  var storedOTP;
+  function signin() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("pwd").value;
+    if (sessionStorage.getItem("email") == email && sessionStorage.getItem("pass") == password) {
+      alert("Login successful");
+    } else {
+      alert("Login failed");
+    }
+  }
+  function showOTPField() {
+    // Generate the OTP and display it in an alert
+    var num = '0123456789';
+    var otp = '';
+    for (let i = 0; i < 4; i++) {
+      otp += num[Math.floor(Math.random() * num.length)];
+    }
+    alert("Your OTP: " + otp);
+    // Store the generated OTP for later validation
+    storedOTP = otp;
+    // Show the OTP field
+    var otpField = document.querySelector('.otp-field');
+    otpField.style.display = 'block';
+  }
+  function validateForm() {
+    var enteredOTP = document.getElementById('otp').value;
+    if (enteredOTP === storedOTP) {
+      alert("Login successful!");
+      window.location.href = "./index.html";
+      return true; // Proceed with form submission
+    } else {
+      alert("Invalid OTP. Please try again.");
+      return false; // Block form submission
+    }
+  }
+</script>
+</html>
